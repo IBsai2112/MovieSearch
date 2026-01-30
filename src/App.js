@@ -8,16 +8,34 @@ const API_URL = process.env.REACT_APP_MOVIES_API_URL;
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const searchMovies = async (title) => {
+    if (!title) return;
+
     setLoading(true);
+    setMovies([]); // 🔥 clear old movies FIRST
 
-    const response = await fetch(`${API_URL}&s=${title}`);
-    const data = await response.json();
+    try {
+      const response = await fetch(`${API_URL}&s=${title}`);
+      const data = await response.json();
 
-    setMovies(data.Search || []);
-    setTimeout(() => setLoading(false), 600); // smooth feel
+      if (data.Response === 'True') {
+        // 🔥 remove duplicate movies using imdbID
+        const uniqueMovies = Array.from(
+          new Map(data.Search.map((m) => [m.imdbID, m])).values()
+        );
+
+        setMovies(uniqueMovies);
+      } else {
+        setMovies([]); // no results
+      }
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      setMovies([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -31,10 +49,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app fade-in">
+    <div className="app">
       <h1>SaiFlix</h1>
 
-      <div className="search slide-down">
+      <div className="search">
         <input
           placeholder="Search for movies"
           value={searchTerm}
@@ -48,23 +66,22 @@ const App = () => {
         />
       </div>
 
-      {loading ? (
-        <div className="container">
-          {Array.from({ length: 6 }).map((_, i) => (
+      {/* Content Area */}
+      <div className="container">
+        {loading ? (
+          Array.from({ length: 6 }).map((_, i) => (
             <div className="skeleton-card" key={i}></div>
-          ))}
-        </div>
-      ) : movies.length > 0 ? (
-        <div className="container fade-up">
-          {movies.map((movie) => (
+          ))
+        ) : movies.length > 0 ? (
+          movies.map((movie) => (
             <MovieCard movie={movie} key={movie.imdbID} />
-          ))}
-        </div>
-      ) : (
-        <div className="empty fade-up">
-          <h2>No Movies Found!</h2>
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="empty">
+            <h2>No Movies Found!</h2>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
