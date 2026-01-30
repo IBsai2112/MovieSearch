@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-
 import MovieCard from './MovieCard';
-
 import './App.css';
 import SearchIcon from './search.svg';
 
@@ -10,13 +8,16 @@ const API_URL = process.env.REACT_APP_MOVIES_API_URL;
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const searchMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`);
+    setLoading(true);
 
+    const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
 
-    setMovies(data.Search);
+    setMovies(data.Search || []);
+    setTimeout(() => setLoading(false), 600); // smooth feel
   };
 
   const handleKeyDown = (e) => {
@@ -30,9 +31,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app">
+    <div className="app fade-in">
       <h1>SaiFlix</h1>
-      <div className="search">
+
+      <div className="search slide-down">
         <input
           placeholder="Search for movies"
           value={searchTerm}
@@ -46,14 +48,20 @@ const App = () => {
         />
       </div>
 
-      {movies?.length > 0 ? (
+      {loading ? (
         <div className="container">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div className="skeleton-card" key={i}></div>
+          ))}
+        </div>
+      ) : movies.length > 0 ? (
+        <div className="container fade-up">
           {movies.map((movie) => (
-            <MovieCard movie={movie} />
+            <MovieCard movie={movie} key={movie.imdbID} />
           ))}
         </div>
       ) : (
-        <div className="empty">
+        <div className="empty fade-up">
           <h2>No Movies Found!</h2>
         </div>
       )}
