@@ -14,24 +14,23 @@ const App = () => {
     if (!title) return;
 
     setLoading(true);
-    setMovies([]); // 🔥 clear old movies FIRST
+    setMovies([]); // clear old data
 
     try {
       const response = await fetch(`${API_URL}&s=${title}`);
       const data = await response.json();
 
       if (data.Response === 'True') {
-        // 🔥 remove duplicate movies using imdbID
+        // remove duplicates
         const uniqueMovies = Array.from(
           new Map(data.Search.map((m) => [m.imdbID, m])).values()
         );
-
         setMovies(uniqueMovies);
       } else {
-        setMovies([]); // no results
+        setMovies([]);
       }
     } catch (error) {
-      console.error('Error fetching movies:', error);
+      console.error(error);
       setMovies([]);
     } finally {
       setLoading(false);
@@ -66,7 +65,6 @@ const App = () => {
         />
       </div>
 
-      {/* Content Area */}
       <div className="container">
         {loading ? (
           Array.from({ length: 6 }).map((_, i) => (
