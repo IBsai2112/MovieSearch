@@ -4,6 +4,23 @@ SaiFlix is a React.js movie discovery application that allows users to search fo
 
 This project was created to strengthen frontend development skills, including React hooks, API integration, and environment variable management.
 
+### 📸 Project Preview
+<p align="center">
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/11.png" width="30%" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/12.png" width="30%" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/13.png" width="30%" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/14.png" width="30%" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/15.png" width="30%" />
+  &nbsp;&nbsp;
+  <img src="https://github.com/IBsai2112/MovieSearch/blob/e044dc6774432dff283267387738571893a4d6fe/public/16.png" width="30%" />
+</p>
+---
 # Installation
 
 1. Clone the repository to your local machine:
