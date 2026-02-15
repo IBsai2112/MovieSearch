@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import './App.css';
-import Loader from "./components/Loader"; 
+import Loader from "./components/Loader";
 
 
 import SearchIcon from './search.svg';
 import WishlistIcon from './Wishlist_icon.png';
 
 const API_URL = process.env.REACT_APP_MOVIES_API_URL;
-const DEFAULT_KEYWORDS = ['Batman', 'Avengers', 'Harry Potter', 'Marvel'];
+const DEFAULT_KEYWORDS = ['Cars', 'Avengers', 'fast', 'krish', 'war', 'love', 'space', 'hero', 'golmaal', 'horror'];
 
 const App = () => {
   const [movies, setMovies] = useState([]);
