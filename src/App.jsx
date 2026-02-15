@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import './App.css';
+import Loader from "./components/Loader"; 
+import { AnimatePresence } from "framer-motion";
 
 import SearchIcon from './search.svg';
 import WishlistIcon from './Wishlist_icon.png';
@@ -15,6 +17,17 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [appLoading, setAppLoading] = useState(true);
+
+  // Loader timer
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAppLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   /* Load wishlist */
   useEffect(() => {
@@ -100,6 +113,11 @@ const App = () => {
   const removeFromWishlist = (id) => {
     setWishlist(wishlist.filter((m) => m.imdbID !== id));
   };
+
+// ✅ SHOW LOADER HERE
+    if (appLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="app">
