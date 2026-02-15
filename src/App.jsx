@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import './App.css';
 import Loader from "./components/Loader"; 
-import { AnimatePresence } from "framer-motion";
+
 
 import SearchIcon from './search.svg';
 import WishlistIcon from './Wishlist_icon.png';

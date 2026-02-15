@@ -1,20 +1,12 @@
-import { motion } from 'framer-motion';
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const Container = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-touch-action: none;
-overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-
-  z-index: 6;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
 
   display: flex;
   flex-direction: column;
@@ -22,97 +14,42 @@ overflow: hidden;
   align-items: center;
 
   background-color: #242424;
-
-  width: 100%;
-
-  @media (max-width: 48em) {
-    svg{
-      width: 20vw;
-    }
-  }
-
-  svg {
-    width: 10vw;
-
-    height: auto;
-    overflow: visible;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    g {
-      path {
-        stroke: #ffffff;
-      }
-    }
-  }
 `;
 
-const pathVariants = {
-  hidden: {
-    opacity: 0,
-    pathLength: 0,
-  },
-  visible: {
-    opacity: 1,
-    pathLength: 1,
-
-    transition: {
-      duration: 2,
-      // yoyo: Infinity,
-      ease: 'easeInOut',
-    },
-  },
-};
-const textVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-
-    transition: {
-      duration: 1,
-      yoyo: Infinity,
-
-      ease: 'easeInOut',
-    },
-  },
-};
-
 const Text = styled(motion.span)`
-  font-size: ${(props) => props.theme.fontxl};
-  color: ${(props) => props.theme.text};
-  padding-top: 0.5rem;
-
-  @media (max-width: 48em) {
-    font-size: ${(props) => props.theme.fontlg};
-
-  }
+  font-size: clamp(40px, 8vw, 100px);
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-top: 10px;
 `;
 
 const Loader = () => {
   return (
     <Container
-      initial={{ y: 0, opacity: 1 }}
-      exit={{ y: '100%', opacity: 0 }}
-      transition={{ duration: 2 }}
+      initial={{ y: 0 }}
+      animate={{ y: 0 }}
+      exit={{ y: "100%" }}   // slide down animation
+      transition={{ duration: 1, ease: "easeInOut" }}
     >
-      {/* <img src={star} alt="Wibe Fashion" /> */}
       <DotLottieReact
-  src="https://lottie.host/60db390c-76b5-4db7-b091-1b1c4092eefb/ZI4PzUvraG.lottie"
-  loop
-  autoplay
-  style={{ width: "120px", height: "120px" }}
-/>
+        src="https://lottie.host/60db390c-76b5-4db7-b091-1b1c4092eefb/ZI4PzUvraG.lottie"
+        loop
+        autoplay
+        style={{ width: "120px", height: "120px" }}
+      />
+
       <Text
-  style={{ fontSize: "5vh" }}
-  variants={textVariants}
-  initial="hidden"
-  animate="visible"
->
-  SaiFlix
-</Text>
+        style={{ fontSize: "5vh" }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+      >
+        SaiFlix
+      </Text>
     </Container>
   );
 };
 
 export default Loader;
+
