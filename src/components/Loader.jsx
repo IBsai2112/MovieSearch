@@ -98,14 +98,19 @@ const Loader = () => {
     >
       {/* <img src={star} alt="Wibe Fashion" /> */}
       <DotLottieReact
-  src="https://lottie.host/575ed603-9bcc-49e4-b4c9-1bf425f09940/MwIj8U3OXA.lottie"
+  src="https://lottie.host/60db390c-76b5-4db7-b091-1b1c4092eefb/ZI4PzUvraG.lottie"
   loop
   autoplay
   style={{ width: "120px", height: "120px" }}
 />
-      <Text variants={textVariants} initial="hidden" animate="visible">
-        Sai Studio
-      </Text>
+      <Text
+  style={{ fontSize: "5vh" }}
+  variants={textVariants}
+  initial="hidden"
+  animate="visible"
+>
+  SaiFlix
+</Text>
     </Container>
   );
 };
